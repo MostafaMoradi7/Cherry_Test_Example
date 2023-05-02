@@ -1,20 +1,28 @@
 import json
-from models import Node, Owner, Car, Toll
+from django.http import HttpResponse
+from django.conf import settings
+import os
+
+from .models import Node, Car, Toll, Owner, Road
 
 
 def get_all_info():
-    with open('data/all_nodes.json', 'r') as data:
-        all_nodes_json = json.load(data)
+    with open(os.path.join(settings.BASE_DIR, 'cherry_app', 'data/all_nodes.json'), 'r') as data1:
+        all_nodes_json = json.load(data1)
 
-    with open('data/owners.json', 'r') as data:
-        owners_json = json.load(data)
+    with open(os.path.join(settings.BASE_DIR, 'cherry_app', 'data/owners.json'), 'r') as data2:
+        owners_json = json.load(data2)
 
-    with open('data/tollStations.json', 'r') as data:
-        toll_stations_json = json.load(data)
+    with open(os.path.join(settings.BASE_DIR, 'cherry_app', 'data/tollStations.json'), 'r') as data3:
+        toll_stations_json = json.load(data3)
+
+    with open(os.path.join(settings.BASE_DIR, 'cherry_app', 'data/roads.json'), 'r') as data4:
+        roads_json = json.load(data4)
 
     nodes = []
     owners = []
     toll_stations = []
+    roads = []
 
     # TAKING OUT ALL THE NODES IN FILE 'all_nodes.json' and saving them in cache
     for n in all_nodes_json:
@@ -47,7 +55,7 @@ def get_all_info():
         )
         owners.append(owner)
 
-    #SAME FOR TOLL_STATIONS
+    # SAME FOR TOLL_STATIONS
     for t in toll_stations_json:
         toll = Toll(
             name=t['name'],
@@ -56,7 +64,22 @@ def get_all_info():
         )
         toll_stations.append(toll)
 
+    # SAME FOR THE ROADS TOO
+    for r in roads_json:
+        road = Road(
+            name=r['name'],
+            geom=r['geom'],
+            width=r['width']
+        )
+        roads.append(road)
 
-    #RETURNING THE RESULT
+    # RETURNING THE RESULT
     all_info = {"all_nodes": nodes, "owners": owners, "tollStations": toll_stations}
     return all_info
+
+
+information = get_all_info()
+
+
+def test(request):
+    return HttpResponse(information['all_nodes'])
