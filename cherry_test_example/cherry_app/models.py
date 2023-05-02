@@ -24,3 +24,9 @@ class Car:
         self.load_volume = load_volume
 
 
+class Toll:
+    def __init__(self, name, toll_per_cross, location):
+        self.name = name
+        self.toll_per_cross = toll_per_cross
+        self.location = location
+
