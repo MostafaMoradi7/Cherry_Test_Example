@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.conf import settings
 import os
 
+from django.shortcuts import render
+
 from .models import Node, Car, Toll, Owner, Road
 
 
@@ -82,4 +84,5 @@ information = get_all_info()
 
 
 def test(request):
-    return HttpResponse(information['all_nodes'])
+    msg = information['all_nodes']
+    return render(request, 'index.html', {"message": msg})

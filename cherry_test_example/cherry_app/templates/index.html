@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cherry Test</title>
+</head>
+<body>
+    <h1>Hello Mostafa</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Array 1</th>
+      <th>Array 2</th>
+      <th>Array 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in message %}
+      <tr>
+        <td>Car: {{ m.car }}</td>
+        <td>Location: {{ m.location }}</td>
+        <td>Date: {{ m.date }}</td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</body>
+</html>
