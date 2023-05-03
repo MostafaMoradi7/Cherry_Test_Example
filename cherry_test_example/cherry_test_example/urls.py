@@ -7,5 +7,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', views.test),
     path('', views.main),
+    path('red-blue-cars', views.get_red_blue_cars),
+    path('register-owner-car', views.get_red_blue_cars),
+    path('old-owner', views.get_red_blue_cars),
+    path('', views.get_red_blue_cars),
+    path('red-blue-cars', views.get_red_blue_cars),
+    path('red-blue-cars', views.get_red_blue_cars),
     path('red-blue-cars', views.get_red_blue_cars)
 ]

@@ -14,21 +14,21 @@
 </head>
 <body>
 <div class="container">
-    <h1>Hello Mostafa</h1>
+    <h1>Information Requested</h1>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Array 1</th>
-            <th>Array 2</th>
-            <th>Array 3</th>
+            <th>{{ message.headers.th1 }}</th>
+            <th>{{ message.headers.th2 }}</th>
+            <th>{{ message.headers.th3 }}</th>
         </tr>
         </thead>
         <tbody>
-        {% for m in message %}
+        {% for m in message.info %}
         <tr>
-            <td>Car: {{ m.name }}</td>
-            <td>Location: {{ m.geom }}</td>
-            <td>Date: {{ m.width }}</td>
+            <td>{{ m.name }}</td>
+            <td>{{ m.geom }}</td>
+            <td>{{ m.width }}</td>
         </tr>
         {% endfor %}
 

@@ -6,7 +6,7 @@ information = funcs.get_all_info()
 
 def test(request):
     msg = information['roads']
-    return render(request, 'index.html', {"message": msg})
+    return render(request, 'nodes.html', {"message": msg})
 
 
 def main(request):
@@ -14,4 +14,7 @@ def main(request):
 
 
 def get_red_blue_cars(request):
-    pass
+    info = information['roads']
+    headers = {"th1": "name", "th2": "width", "th3": "geom"}
+    msg = {"info": info, "headers": headers}
+    return render(request, 'nodes.html', {"message": msg})
