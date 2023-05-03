@@ -74,5 +74,6 @@ def get_all_info():
         roads.append(road)
 
     # RETURNING THE RESULT
-    all_info = {"all_nodes": nodes, "owners": owners, "tollStations": toll_stations}
+    all_info = {"all_nodes": nodes, "owners": owners,
+                "tollStations": toll_stations, "roads": roads}
     return all_info
