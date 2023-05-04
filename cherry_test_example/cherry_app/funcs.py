@@ -2,7 +2,6 @@ import json
 from django.conf import settings
 import os
 
-
 from .models import Node, Car, Toll, Owner, Road
 
 
@@ -86,4 +85,59 @@ def find_all_red_and_blue_cars(owners):
             if car.color == 'red' or car.color == 'blue':
                 result.append(car)
 
+    return result
+
+
+def get_old_owners_cars(owners):
+    cars = []
+    for owner in owners:
+        if owner.age > 70:
+            for car in owner.cars:
+                cars.append(car)
+
+    return cars
+
+
+def check_is_on_road(roads, node):
+    for road in roads:
+        road_x, road_y = road.get_coordinates()
+        location_points = node.get_location_dict()['Point']
+        if location_points['x'] < min(road_x) or location_points['x'] > max(road_x):
+            continue
+        for i in range(len(road_x) - 1):
+            m = (road_y[i + 1] - road_y[i]) / (road_x[i + 1] - road_x[i])
+            b = road_y[i] - road_x[i] * m
+
+            if abs(location_points['y'] - (location_points['x'] * m + b)) < 1e-6:
+                return True
+    return False
+
+
+def get_heavy_cars(information):
+    # FIRST WE HAVE TO FIND THE CARS:
+    heavy_cars_set = set()
+    heavy_cars = []
+    for owner in information['owners']:
+        for car in owner.cars:
+            if car.type == "big":
+                heavy_cars_set.add(car.id)
+                heavy_cars.append(car)
+
+    # WE'LL FIND ALL ROADS WITH WIDTH LESS THAN 20 FIRST:
+    tight_roads = []
+    for road in information['roads']:
+        if road.width < 20:
+            tight_roads.append(road)
+
+    # NOW WE NEED TO CHECK WHETHER THESE CARS WERE ON TIGHT ROADS OR NOT:
+    result_set = set()      # FOR MAKING SURE WE'RE NOT DUPLICATING
+    for node in information['all_nodes']:
+        if (node.car in heavy_cars_set) and (node.car not in result_set):
+            if check_is_on_road(tight_roads, node):
+                result_set.add(node.car)
+
+    result = []
+    for car in heavy_cars:
+        if car.id in result_set:
+            result.append(car)
     return result

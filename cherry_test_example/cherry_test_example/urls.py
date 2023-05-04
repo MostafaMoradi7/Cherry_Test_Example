@@ -10,9 +10,9 @@ urlpatterns = [
     path('red-blue-cars', views.get_red_blue_cars),
     path('register-owner-car', views.register_car_owner),
     path('register', views.register),
-    # path('old-owner', views.get_red_blue_cars),
-    # path('', views.get_red_blue_cars),
-    # path('red-blue-cars', views.get_red_blue_cars),
+    path('old-owner', views.get_old_owners_cars),
+    path('test-test', views.call_test),
+    path('Cars-on-road', views.get_heavy_cars),
     # path('red-blue-cars', views.get_red_blue_cars),
     # path('red-blue-cars', views.get_red_blue_cars)
 ]

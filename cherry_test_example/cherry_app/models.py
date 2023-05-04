@@ -1,8 +1,20 @@
+import re
+
+
 class Node:
     def __init__(self, car, location, date):
         self.car = car
         self.location = location
         self.date = date
+
+    def get_location_dict(self):
+        srid_point = self.location.split(";")
+        srid = srid_point[0].split("=")
+        sr_id = srid[1]
+        point_str = srid_point[1].replace("POINT (", "").replace(")", "")
+        point_list = point_str.split(" ")
+        point = {"x": float(point_list[0]), "y": float(point_list[1])}
+        return {"SRID": sr_id, "Point": point}
 
 
 class Owner:
@@ -36,3 +48,24 @@ class Road:
         self.name = name
         self.width = width
         self.geom = geom
+
+    def get_coordinates(self):
+        # Extract coordinates from geom string using regular expressions
+        pattern = r'SRID=4326;MULTILINESTRING \(\((.*)\)\)'
+        match = re.search(pattern, self.geom)
+        if not match:
+            return None
+
+        coord_str = match.group(1)
+        coord_pairs = coord_str.split(',')
+
+        # Convert coordinate pairs to arrays of X and Y coordinates
+        x_coords = []
+        y_coords = []
+        for pair in coord_pairs:
+            x, y = map(float, pair.strip().split())
+            x_coords.append(x)
+            y_coords.append(y)
+
+        return x_coords, y_coords
+

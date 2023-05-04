@@ -55,3 +55,20 @@ def register(request):
     else:
         return HttpResponse("Failed to save information")
 
+
+def get_old_owners_cars(request):
+    cars = funcs.get_old_owners_cars(information['owners'])
+    return render(request, 'cars.html', {"message": cars})
+
+
+def get_heavy_cars(request):
+    heavy_cars = funcs.get_heavy_cars(information)
+    return render(request, 'cars.html', {"message": heavy_cars})
+
+
+def call_test(request):
+    nodes = information['all_nodes']
+    test = []
+    for n in nodes:
+        print(n.get_location_dict())
+    return render(request, 'cars.html', {"message": test})
