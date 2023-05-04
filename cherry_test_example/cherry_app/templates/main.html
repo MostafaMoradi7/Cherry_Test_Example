@@ -11,49 +11,66 @@
             padding-top: 50px;
         }
 
+        .alert {
+            margin-top: 20px;
+        }
+
         .btn {
             width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Orders</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>created using Rest API's concept</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="http://localhost:8000/red-blue-cars" class="btn btn-primary">GET all RED and BLUE cars</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://localhost:8000/register-owner-car" class="btn btn-primary">Register Owner and Car</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://localhost:8000/old-owner" class="btn btn-primary">GET all owners older than 70 years</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://localhost:8000/Cars-on-road" class="btn btn-primary">Cars on roads with a length less than the permitted width</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://localhost:8000/tolls-of-car" class="btn btn-primary">Tolls of a car and owner in a known period</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://localhost:8000/location-lists" class="btn btn-primary">Get list of location of all light cars in Tehran and around 600 meters far from first toll</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://name-and-national-code" class="btn btn-primary">Name and national code of owners who have toll in order of their tolls</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+{% if messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+<div class="container">
+    <h1>Orders</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>created using Rest API's concept</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a href="red-blue-cars" class="btn btn-primary">GET all RED and BLUE cars</a></td>
+        </tr>
+        <tr>
+            <td><a href="register-owner-car" class="btn btn-primary">Register Owner and Car</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://localhost:8000/old-owner" class="btn btn-primary">GET all owners older than 70 years</a>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="http://localhost:8000/Cars-on-road" class="btn btn-primary">Cars on roads with a length less
+                than the permitted width</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://localhost:8000/tolls-of-car" class="btn btn-primary">Tolls of a car and owner in a known
+                period</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://localhost:8000/location-lists" class="btn btn-primary">Get list of location of all light
+                cars in Tehran and around 600 meters far from first toll</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://name-and-national-code" class="btn btn-primary">Name and national code of owners who
+                have toll in order of their tolls</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

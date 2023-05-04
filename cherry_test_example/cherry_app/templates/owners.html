@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Data Table</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>JSON Data Table</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>National Code</th>
+                <th>Age</th>
+                <th>Total Toll Paid</th>
+                <th>Owner Car ID</th>
+                <th>Owner Car Type</th>
+                <th>Owner Car Color</th>
+                <th>Owner Car Length</th>
+                <th>Owner Car Load Volume</th>
+            </tr>
+        </thead>
+        <tbody id="json-table-body">
+        </tbody>
+    </table>
+</div>
+
+<script>
+// Replace this with your actual JSON list
+var jsonList =
+
+// Loop through the JSON list and add each item to the table
+for (var i = 0; i < jsonList.length; i++) {
+    var row = "<tr><td>" + jsonList[i].name + "</td><td>" + jsonList[i].national_code + "</td><td>" +
+              jsonList[i].age + "</td><td>" + jsonList[i].total_toll_paid + "</td><td>" +
+              jsonList[i].ownerCar[0].id + "</td><td>" + jsonList[i].ownerCar[0].type + "</td><td>" +
+              jsonList[i].ownerCar[0].color + "</td><td>" + jsonList[i].ownerCar[0].length + "</td><td>" +
+              jsonList[i].ownerCar[0].load_valume + "</td></tr>";
+    document.getElementById("json-table-body").innerHTML += row;
+}
+</script>
+
+</body>
+</html>

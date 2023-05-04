@@ -8,10 +8,11 @@ urlpatterns = [
     path('test/', views.test),
     path('', views.main),
     path('red-blue-cars', views.get_red_blue_cars),
-    path('register-owner-car', views.get_red_blue_cars),
-    path('old-owner', views.get_red_blue_cars),
-    path('', views.get_red_blue_cars),
-    path('red-blue-cars', views.get_red_blue_cars),
-    path('red-blue-cars', views.get_red_blue_cars),
-    path('red-blue-cars', views.get_red_blue_cars)
+    path('register-owner-car', views.register_car_owner),
+    path('register', views.register),
+    # path('old-owner', views.get_red_blue_cars),
+    # path('', views.get_red_blue_cars),
+    # path('red-blue-cars', views.get_red_blue_cars),
+    # path('red-blue-cars', views.get_red_blue_cars),
+    # path('red-blue-cars', views.get_red_blue_cars)
 ]

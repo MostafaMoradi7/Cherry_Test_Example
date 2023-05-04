@@ -77,3 +77,13 @@ def get_all_info():
     all_info = {"all_nodes": nodes, "owners": owners,
                 "tollStations": toll_stations, "roads": roads}
     return all_info
+
+
+def find_all_red_and_blue_cars(owners):
+    result = []
+    for owner in owners:
+        for car in owner.cars:
+            if car.color == 'red' or car.color == 'blue':
+                result.append(car)
+
+    return result
