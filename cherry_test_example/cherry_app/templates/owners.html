@@ -12,21 +12,23 @@
     <h2>Owners</h2>
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>National Code</th>
-                <th>Age</th>
-                <th>Total Toll Paid</th>
+        <tr>
+            <th>Name</th>
+            <th>National Code</th>
+            <th>Age</th>
+            <th>Total Toll Paid</th>
+            <th>Car IDs</th>
 
-            </tr>
-        {% for owner in message %}
-            <tr>
-                <td>{{owner.name}}</td>
-                <td>{{owner.national_code}}</td>
-                <td>{{owner.age}}</td>
-                <td>{{owner.total_toll_paid}}</td>
-            </tr>
-        {% endfor %}
+        </tr>
+
+        <tr>
+            <td>{{found.name}}</td>
+            <td>{{found.national_code}}</td>
+            <td>{{found.age}}</td>
+            <td>{{found.total_toll_paid}}</td>
+            <td>{{car_ids}}</td>
+        </tr>
+
         </thead>
         <tbody id="json-table-body">
         </tbody>

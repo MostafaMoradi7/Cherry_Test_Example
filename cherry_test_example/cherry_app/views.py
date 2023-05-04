@@ -1,4 +1,6 @@
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from . import funcs
 from . import models
@@ -72,3 +74,37 @@ def call_test(request):
     for n in nodes:
         print(n.get_location_dict())
     return render(request, 'cars.html', {"message": test})
+
+
+def find_tolls_of_cars(request):
+    return render(request, 'toll-lookup.html')
+
+
+def find_tolls(request):
+    if request.method == 'POST':
+        car_id = int(request.POST.get('car_id', None))
+        owner_name = str(request.POST.get('owner_name', None))
+
+        if car_id:
+            for owner in information['owners']:
+                for car in owner.cars:
+                    if car.id == car_id:
+                        found = owner
+                        car_ids = []
+                        for c in found.cars:
+                            car_ids.append(c.id)
+                        return render(request, 'owners.html', {"found": found, "car_ids": car_ids})
+        elif owner_name:
+            for owner in information['owners']:
+                if owner.name == owner_name:
+                    found = owner
+                    car_ids = []
+                    for car in found.cars:
+                        car_ids.append(car.id)
+                    return render(request, 'owners.html', {"found": found, "car_ids": car_ids})
+
+        # if no results were found, return a message
+        return HttpResponse("No results found.")
+    else:
+        return HttpResponse("Failed!1")
+

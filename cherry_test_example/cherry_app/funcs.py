@@ -141,3 +141,7 @@ def get_heavy_cars(information):
         if car.id in result_set:
             result.append(car)
     return result
+
+
+def owners_cars_toll():
+    pass
