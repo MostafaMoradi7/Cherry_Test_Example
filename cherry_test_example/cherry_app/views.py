@@ -82,10 +82,11 @@ def find_tolls_of_cars(request):
 
 def find_tolls(request):
     if request.method == 'POST':
-        car_id = int(request.POST.get('car_id', None))
-        owner_name = str(request.POST.get('owner_name', None))
+        car_id = request.POST.get('car_id', None)
+        owner_name = request.POST.get('owner_name', None)
 
         if car_id:
+            car_id = int(car_id)
             for owner in information['owners']:
                 for car in owner.cars:
                     if car.id == car_id:
@@ -95,6 +96,7 @@ def find_tolls(request):
                             car_ids.append(c.id)
                         return render(request, 'owners.html', {"found": found, "car_ids": car_ids})
         elif owner_name:
+            owner_name = str(owner_name)
             for owner in information['owners']:
                 if owner.name == owner_name:
                     found = owner
