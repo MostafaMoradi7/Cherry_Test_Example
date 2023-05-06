@@ -1,16 +1,9 @@
-import json
-
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from . import funcs
 from . import models
 
 information = funcs.get_all_info()
-
-
-def test(request):
-    msg = information['roads']
-    return render(request, 'nodes.html', {"message": msg})
 
 
 def main(request):
@@ -34,7 +27,8 @@ def register(request):
         total_toll_paid = request.POST['total_toll_paid']
 
         # Save registration info
-        owner = models.Owner(name=name, national_code=national_code, age=age, total_toll_paid=total_toll_paid, cars=[])
+        owner = models.Owner(name=name, national_code=int(national_code), age=int(age),
+                             total_toll_paid=float(total_toll_paid), cars=[])
         cars = []
         # Save owner car info
         car_count = request.POST.get('carCount')
@@ -48,9 +42,6 @@ def register(request):
                                        load_volume=car_load_volume)
                 cars.append(owner_car)
 
-        # your code here
-        else:
-            print(request.POST)
         owner.cars = cars
         information['owners'].append(owner)
         return render(request, 'main.html')
@@ -66,13 +57,6 @@ def get_old_owners_cars(request):
 def get_heavy_cars(request):
     heavy_cars = funcs.get_heavy_cars(information)
     return render(request, 'cars.html', {"message": heavy_cars})
-
-
-def call_test(request):
-    test = funcs.get_owners_with_toll(information['owners'])
-    for t in test:
-        print(t.name, t.total_toll_paid)
-    return HttpResponse("TESTING PROCESS IS RUNNING")
 
 
 def find_tolls_of_cars(request):

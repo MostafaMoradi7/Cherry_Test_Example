@@ -162,9 +162,6 @@ def haversine(node, toll):
         math.sin(dLon / 2) * math.sin(dLon / 2)
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     d = R * c * 1000  # distance in meters
-    print(node.car)
-    print(d)
-    print('************************')
     return d <= 600
 
 
