@@ -32,4 +32,4 @@ The project is implemented using the Django web framework with RESTful API desig
 
 ## Contributors
 
-This project was implemented as an internship project for <Ofogh> Company. If you have any suggestions or improvements, feel free to create a pull request or open an issue.
+This project was implemented as an internship project for Ofogh Company. If you have any suggestions or improvements, feel free to create a pull request or open an issue.
