@@ -16,5 +16,5 @@ urlpatterns = [
     path('tolls-of-car', views.find_tolls_of_cars),
     path('find_tolls', views.find_tolls),
     path('location-lists', views.get_location_lists),
-    # path('red-blue-cars', views.get_red_blue_cars)
+    path('name-and-national-code', views.show_name_national_code)
 ]

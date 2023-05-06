@@ -157,11 +157,11 @@ def haversine(node, toll):
     R = 6371  # radius of the Earth in kilometers
     dLat = math.radians(lat2 - lat1)
     dLon = math.radians(lon2 - lon1)
-    a = math.sin(dLat/2) * math.sin(dLat/2) + \
+    a = math.sin(dLat / 2) * math.sin(dLat / 2) + \
         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * \
-        math.sin(dLon/2) * math.sin(dLon/2)
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    d = R * c * 1000 # distance in meters
+        math.sin(dLon / 2) * math.sin(dLon / 2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    d = R * c * 1000  # distance in meters
     print(node.car)
     print(d)
     print('************************')
@@ -213,3 +213,9 @@ def get_location_infos(information):
             result.append(car)
 
     return result
+
+
+def get_owners_with_toll(owners):
+    return sorted(owners, key=lambda owner: owner.total_toll_paid)
+
+

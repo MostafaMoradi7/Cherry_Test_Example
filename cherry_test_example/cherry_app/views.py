@@ -69,7 +69,9 @@ def get_heavy_cars(request):
 
 
 def call_test(request):
-    toll_info = information['tollStations']
+    test = funcs.get_owners_with_toll(information['owners'])
+    for t in test:
+        print(t.name, t.total_toll_paid)
     return HttpResponse("TESTING PROCESS IS RUNNING")
 
 
@@ -111,3 +113,8 @@ def find_tolls(request):
 def get_location_lists(request):
     cars_close_toll1 = funcs.get_location_infos(information)
     return render(request, 'cars.html', {"message": cars_close_toll1})
+
+
+def show_name_national_code(request):
+    owners_name_toll = funcs.get_owners_with_toll(information['owners'])
+    return render(request, 'national_code_name.html', {"owner": owners_name_toll})
