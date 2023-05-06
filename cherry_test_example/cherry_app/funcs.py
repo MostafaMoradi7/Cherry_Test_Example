@@ -1,4 +1,7 @@
 import json
+import math
+from datetime import datetime
+
 from django.conf import settings
 import os
 
@@ -130,7 +133,7 @@ def get_heavy_cars(information):
             tight_roads.append(road)
 
     # NOW WE NEED TO CHECK WHETHER THESE CARS WERE ON TIGHT ROADS OR NOT:
-    result_set = set()      # FOR MAKING SURE WE'RE NOT DUPLICATING
+    result_set = set()  # FOR MAKING SURE WE'RE NOT DUPLICATING
     for node in information['all_nodes']:
         if (node.car in heavy_cars_set) and (node.car not in result_set):
             if check_is_on_road(tight_roads, node):
@@ -143,5 +146,70 @@ def get_heavy_cars(information):
     return result
 
 
-def owners_cars_toll():
-    pass
+def haversine(node, toll):
+    node_location = node.get_location_dict()
+    node_points = node_location['Point']
+    toll_points = toll.get_location_points()
+    lat1 = toll_points['x']
+    lon1 = toll_points['y']
+    lat2 = node_points['x']
+    lon2 = node_points['y']
+    R = 6371  # radius of the Earth in kilometers
+    dLat = math.radians(lat2 - lat1)
+    dLon = math.radians(lon2 - lon1)
+    a = math.sin(dLat/2) * math.sin(dLat/2) + \
+        math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * \
+        math.sin(dLon/2) * math.sin(dLon/2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    d = R * c * 1000 # distance in meters
+    print(node.car)
+    print(d)
+    print('************************')
+    return d <= 600
+
+
+def check_date_right_now(node):
+    # Get the current UTC time
+    now = datetime.utcnow()
+
+    # Format the time as required
+    time_format = "%H:%M:%S.%f"
+    current_time = now.strftime(time_format)
+    current_time_str = current_time + 'Z'
+    node_time = node.date.split('T')[1]
+
+    return node_time == current_time_str
+
+
+def get_location_infos(information):
+    # FIRST WE HAVE TO GET THE LIST OF ALL 'small' CARS
+    light_cars = []
+    light_cars_id_set = set()  # FOR MAKING SURE WE ARE NOT DUPLICATING
+    for owner in information['owners']:
+        for car in owner.cars:
+            if car.type == 'small':
+                light_cars.append(car)
+                light_cars_id_set.add(car.id)
+
+    light_nodes = []
+    for node in information['all_nodes']:
+        if node.car in light_cars_id_set:
+            light_nodes.append(node)
+
+    first_toll = None
+    for t in information['tollStations']:
+        if t.name == "عوراضی 1":
+            first_toll = t
+            break
+
+    result = []
+    res_ids = set()
+    for ln in light_nodes:
+        if ln.car in light_cars_id_set:
+            if haversine(ln, first_toll) and check_date_right_now(ln):
+                res_ids.add(ln.car)
+    for car in light_cars:
+        if car.id in res_ids:
+            result.append(car)
+
+    return result

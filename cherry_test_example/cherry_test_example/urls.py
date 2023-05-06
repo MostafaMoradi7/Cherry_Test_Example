@@ -15,6 +15,6 @@ urlpatterns = [
     path('Cars-on-road', views.get_heavy_cars),
     path('tolls-of-car', views.find_tolls_of_cars),
     path('find_tolls', views.find_tolls),
-    # path('red-blue-cars', views.get_red_blue_cars),
+    path('location-lists', views.get_location_lists),
     # path('red-blue-cars', views.get_red_blue_cars)
 ]

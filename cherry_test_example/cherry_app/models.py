@@ -42,6 +42,13 @@ class Toll:
         self.toll_per_cross = toll_per_cross
         self.location = location
 
+    def get_location_points(self):
+        location_str = self.location.split(';')[1]
+        coord_str = location_str.replace('POINT (', '').replace(')', '')
+        coords = {'x': float(coord_str.split()[0]),
+                  'y': float(coord_str.split()[1])}
+        return coords
+
 
 class Road:
     def __init__(self, name, width, geom):

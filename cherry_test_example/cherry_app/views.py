@@ -69,11 +69,8 @@ def get_heavy_cars(request):
 
 
 def call_test(request):
-    nodes = information['all_nodes']
-    test = []
-    for n in nodes:
-        print(n.get_location_dict())
-    return render(request, 'cars.html', {"message": test})
+    toll_info = information['tollStations']
+    return HttpResponse("TESTING PROCESS IS RUNNING")
 
 
 def find_tolls_of_cars(request):
@@ -110,3 +107,7 @@ def find_tolls(request):
     else:
         return HttpResponse("Failed!1")
 
+
+def get_location_lists(request):
+    cars_close_toll1 = funcs.get_location_infos(information)
+    return render(request, 'cars.html', {"message": cars_close_toll1})
